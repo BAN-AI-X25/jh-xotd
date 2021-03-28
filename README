@@ -1,0 +1,30 @@
+jh-xotd
+=======
+
+A version of Stephane Fillod's xotd for Linux that allows use of more than
+one xot remote and fixes some synchronisation bugs. This version uses a
+standard "tun" device and works with modern 2.6.x versions of Linux 
+(without x25tap patches).
+
+The configuration file (-f option) now looks like:
+
+# xotd configuration file
+
+# Fields:
+# 1. tun device (use "=" if you don't care, will be tun0, tun1...)
+# 2. remote
+# 3. setup script (use "=" if you don't want one)
+# 4. VC's (256 if missing)
+
+=       192.168.1.66   /etc/xotd/xotd-setup    256
+
+The setup script is run with the name of the xot device as its only argument.
+It should set the link into the "up" state. It is also good place to put x25
+routing configuration, or setup x25 subscription options. For example:
+
+#! /bin/sh -e
+echo "Setting up $1" > /dev/console
+ip link set $1 up
+route --x25 add 0/0 $1
+
+  - JH <john@AtlanTech.com>  (http://perso.calvaedi.com/~john/)
