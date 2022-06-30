@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in addr;
 
     int    on = 1;
-    char   c;
+    int    c;
     int    errflg=0;
 
     char   *config = NULL;
